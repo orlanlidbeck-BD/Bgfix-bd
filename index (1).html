@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BGFIX BD</title>
+<script src="data.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+:root{--bg:#fff;--bg2:#f5f5f5;--bg3:#ebebeb;--text:#1a1a1a;--text2:#666;--text3:#999;--border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.18);--orange:#F9A800;--radius:8px;--radius-lg:12px}
+@media(prefers-color-scheme:dark){:root{--bg:#1a1a1a;--bg2:#242424;--bg3:#2e2e2e;--text:#f0f0f0;--text2:#aaa;--text3:#666;--border:rgba(255,255,255,0.1);--border2:rgba(255,255,255,0.18)}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg3);color:var(--text);height:100vh;overflow:hidden}
+.app{display:flex;height:100vh}
+.sb{width:190px;background:var(--bg2);border-right:0.5px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.logo{padding:14px 14px 10px;font-size:15px;font-weight:600;border-bottom:0.5px solid var(--border);margin-bottom:5px}
+.logo span{color:var(--orange)}
+.nv{display:flex;align-items:center;gap:8px;padding:7px 11px;font-size:13px;cursor:pointer;border-radius:var(--radius);margin:1px 6px;color:var(--text2);transition:background .12s}
+.nv:hover,.nv.on{background:var(--bg);color:var(--text);font-weight:500}
+.nv i{font-size:15px;flex-shrink:0}
+.bc{margin-left:auto;background:#E24B4A;color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600}
+.sb-sec{padding:10px 11px 3px;font-size:10px;color:var(--text3);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.rdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{display:flex;align-items:center;gap:8px;padding:11px 18px;border-bottom:0.5px solid var(--border);background:var(--bg);flex-shrink:0}
+.tb-title{font-size:15px;font-weight:600;flex:1}
+.ct{flex:1;overflow-y:auto;padding:18px;background:var(--bg3)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;font-size:12px;border-radius:var(--radius);border:0.5px solid var(--border2);background:var(--bg);cursor:pointer;color:var(--text);font-family:inherit;transition:background .12s}
+.btn:hover{background:var(--bg2)}
+.btn-or{background:var(--orange);border-color:var(--orange);color:#fff;font-weight:600}
+.btn-or:hover{background:#c98900;border-color:#c98900}
+.btn-gr{background:#3B6D11;border-color:#3B6D11;color:#EAF3DE}
+.btn-bl{background:#E6F1FB;border-color:#85B7EB;color:#0C447C}
+.btn-cp{background:#EAF3DE;border-color:#97C459;color:#27500A}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:16px}
+.sc{background:var(--bg);border-radius:var(--radius);padding:12px 14px;border:0.5px solid var(--border)}
+.sc-l{font-size:11px;color:var(--text2);margin-bottom:3px}
+.sc-n{font-size:22px;font-weight:600}
+.sc-s{font-size:10px;color:var(--text3);margin-top:2px}
+.sec{font-size:11px;font-weight:600;color:var(--text2);letter-spacing:.05em;text-transform:uppercase;margin:14px 0 7px}
+.card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:16px}
+.pr{display:flex;flex-direction:column;gap:4px;padding:9px 12px;border-radius:var(--radius);border:0.5px solid var(--border);background:var(--bg);margin-bottom:4px;cursor:pointer;transition:border-color .12s}
+.pr:hover{border-color:var(--border2)}
+.pr.hot{border-left:3px solid #E24B4A;padding-left:10px}
+.pr.fu{border-left:3px solid var(--orange);padding-left:10px}
+.pr.dim{opacity:.55}
+.pr-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pname{font-size:13px;font-weight:500;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pco{font-size:11px;color:var(--text2);width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0}
+.chip{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;white-space:nowrap;flex-shrink:0}
+.s0{background:#FFF3CD;color:#633806}.s1{background:#EAF3DE;color:#27500A}.s2{background:#FAEEDA;color:#633806}.s3{background:#E6F1FB;color:#0C447C}.s4{background:#EEEDFE;color:#3C3489}.s5{background:#E1F5EE;color:#085041}.s6{background:#F1EFE8;color:#444}
+.srg{background:var(--bg2);color:var(--text2);border:0.5px solid var(--border)}
+.pgrow{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.pglbl{font-size:12px;color:var(--text2);width:90px;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.pgbg{flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.pgfill{height:100%;border-radius:3px}
+.pgpct{font-size:10px;color:var(--text2);width:28px;text-align:right}
+.bnr{background:#FFF3CD;border:0.5px solid var(--orange);border-radius:var(--radius);padding:11px 14px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.kb{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;align-items:start}
+.kbc{background:var(--bg2);border-radius:var(--radius);padding:8px;min-height:100px;border:0.5px solid var(--border)}
+.kbh{font-size:11px;font-weight:600;color:var(--text2);margin-bottom:7px;display:flex;justify-content:space-between;align-items:center}
+.kbcard{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);padding:7px 8px;margin-bottom:4px;cursor:pointer}
+.kbcard:hover{border-color:var(--border2)}
+.kbcn{font-size:11px;font-weight:500;margin-bottom:2px;line-height:1.3}
+.kbco{font-size:10px;color:var(--text2);margin-bottom:3px}
+.fld label{display:block;font-size:11px;color:var(--text2);margin-bottom:3px;font-weight:500}
+.fld input,.fld select,.fld textarea{width:100%;font-size:13px;padding:7px 10px;border:0.5px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:inherit;outline:none}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--orange)}
+.fld textarea{resize:vertical;min-height:60px}
+.tli{display:flex;gap:10px;margin-bottom:8px}
+.tldc{display:flex;flex-direction:column;align-items:center;width:16px;flex-shrink:0}
+.tld{width:10px;height:10px;border-radius:50%;margin-top:3px;flex-shrink:0}
+.tll{flex:1;width:1px;background:var(--border);margin:3px 0}
+.tdate{font-size:10px;color:var(--text2);margin-bottom:2px}
+.tnote{font-size:12px}
+.url-bar{display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--bg2);border-radius:var(--radius);border:0.5px solid var(--border);margin-bottom:12px}
+.idrop{border:2px dashed var(--border2);border-radius:var(--radius);padding:28px;text-align:center;cursor:pointer;margin-bottom:12px}
+.search-wrap{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--bg);border-radius:var(--radius);border:0.5px solid var(--border2);margin-bottom:12px}
+.search-wrap input{flex:1;font-size:13px;border:none;background:transparent;color:var(--text);outline:none;font-family:inherit}
+.mail-box{background:#EAF3DE;border:0.5px solid #97C459;border-radius:var(--radius);padding:12px 14px;margin:9px 0}
+.mail-preview{background:var(--bg);border:0.5px solid #97C459;border-radius:var(--radius);padding:11px 13px;margin-top:9px;font-size:12px;white-space:pre-wrap;line-height:1.65;max-height:220px;overflow-y:auto;font-family:monospace}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="sb">
+  <div class="logo">BG<span>FIX</span> BD</div>
+  <div class="nv" data-v="dash" onclick="go('dash')"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+  <div class="nv" data-v="today" onclick="go('today')"><i class="ti ti-alarm"></i> Ring idag <span class="bc" id="tc">0</span></div>
+  <div class="nv" data-v="pipeline" onclick="go('pipeline')"><i class="ti ti-layout-kanban"></i> Pipeline</div>
+  <div class="nv" data-v="all" onclick="go('all')"><i class="ti ti-building"></i> Alla projekt</div>
+  <div class="nv" data-v="orlan" onclick="go('orlan')"><i class="ti ti-user"></i> Mina projekt</div>
+  <div class="nv" data-v="sales" onclick="go('sales')"><i class="ti ti-star"></i> Passed to Sales</div>
+  <div class="nv" data-v="archive" onclick="go('archive')"><i class="ti ti-archive"></i> Arkiv</div>
+  <div class="sb-sec">Regioner</div>
+  <div class="nv" data-v="Stockholm" onclick="go('Stockholm')"><span class="rdot" style="background:#378ADD"></span> Stockholm</div>
+  <div class="nv" data-v="Norrland" onclick="go('Norrland')"><span class="rdot" style="background:#639922"></span> Norrland</div>
+  <div class="nv" data-v="Mellersta" onclick="go('Mellersta')"><span class="rdot" style="background:#BA7517"></span> Mellersta</div>
+  <div class="nv" data-v="Goteborg" onclick="go('Goteborg')"><span class="rdot" style="background:#D4537E"></span> Göteborg</div>
+  <div class="nv" data-v="Skane" onclick="go('Skane')"><span class="rdot" style="background:#7F77DD"></span> Skåne</div>
+  <div style="margin-top:auto;padding-bottom:8px;border-top:0.5px solid var(--border);padding-top:8px">
+    <div class="nv" data-v="search" onclick="go('search')"><i class="ti ti-search"></i> Sök</div>
+    <div class="nv" data-v="import" onclick="go('import')"><i class="ti ti-upload"></i> Importera</div>
+    <div class="nv" data-v="add" onclick="go('add')"><i class="ti ti-plus"></i> Lägg till</div>
+  </div>
+</div>
+<div class="main">
+  <div class="topbar">
+    <span class="tb-title" id="pt">Dashboard</span>
+    <button class="btn" onclick="exportCSV()"><i class="ti ti-download"></i> Exportera</button>
+    <button class="btn" onclick="go('search')"><i class="ti ti-search"></i> Sök</button>
+    <button class="btn btn-or" onclick="go('add')"><i class="ti ti-plus"></i> Nytt projekt</button>
+  </div>
+  <div class="ct" id="ct"></div>
+</div>
+</div>
+<script>
+// ── Constants ────────────────────────────────────────────────────────────────
+const RC = {Stockholm:'#378ADD',Norrland:'#639922',Mellersta:'#BA7517',Goteborg:'#D4537E',Skane:'#7F77DD'};
+const REGS = Object.keys(RC);
+const ST = ['Find Contact','Ready to Call','Called - No Answer','Answered - Follow Up','Passed to Sales','Complete','Wrong Contact'];
+const SCLS = ['s0','s1','s2','s3','s4','s5','s6'];
+const PROG = {'Find Contact':0,'Ready to Call':10,'Called - No Answer':25,'Answered - Follow Up':50,'Passed to Sales':100,'Complete':100,'Wrong Contact':0};
+const KBCOLS = ['Find Contact','Ready to Call','Called - No Answer','Answered - Follow Up','Passed to Sales','Complete'];
+const ACTS = ['Samtal','Email','Möte','Merchbox','Anteckning','Följ upp'];
+const ACOL = {Samtal:'#3B6D11',Email:'#185FA5','Möte':'#854F0B',Merchbox:'#993556',Anteckning:'#5F5E5A','Följ upp':'#A32D2D'};
+const TITLES = {dash:'Dashboard',today:'Ring idag',pipeline:'Pipeline',all:'Alla projekt',orlan:'Mina projekt',sales:'Passed to Sales',archive:'Arkiv',import:'Importera',add:'Lägg till projekt',search:'Sök projekt'};
+const REGION_NAMES = {Stockholm:'Stockholm',Norrland:'Norrland',Mellersta:'Mellersta Sverige',Goteborg:'Göteborg',Skane:'Skåne'};
+
+const NOW = new Date();
+const TM = NOW.getFullYear()+'-'+String(NOW.getMonth()+1).padStart(2,'0');
+const NM = (function(){var d=new Date(NOW);d.setMonth(d.getMonth()+1);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');})();
+const TDS = NOW.toISOString().slice(0,10);
+const LAST_WEEK = NOW.getDate() > new Date(NOW.getFullYear(),NOW.getMonth()+1,0).getDate()-7;
+
+// ── Data ─────────────────────────────────────────────────────────────────────
+var SAMPLE = window.BGFIX_PROJECTS || [];
+var P = (function(){try{return JSON.parse(localStorage.getItem('bgfix_final')||'null')||SAMPLE;}catch(e){return SAMPLE;}})();
+var V = 'dash', prevV = 'all', _ts = 'priority';
+
+function sv(){try{localStorage.setItem('bgfix_final',JSON.stringify(P));}catch(e){}}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function esc(s){if(!s)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function pc(p){return PROG[p.status]||0;}
+function isToday(p){
+  if(p.status==='Complete'||p.status==='Passed to Sales')return false;
+  if(p.followup===TDS)return true;
+  if((p.start===TM||p.start===NM)&&p.status!=='Wrong Contact'&&p.status!=='Find Contact')return true;
+  return false;
+}
+function chip(s){
+  var i=ST.indexOf(s);
+  var el=document.createElement('span');
+  el.className='chip '+(SCLS[i]||'s6');
+  el.textContent=s;
+  return el.outerHTML;
+}
+function rgnKey(r){
+  if(r==='Göteborg')return 'Goteborg';
+  if(r==='Skåne')return 'Skane';
+  return r;
+}
+
+// ── Project row builder (NO nested template literals) ────────────────────────
+function prow(p, cls, showQL) {
+  var pv = pc(p);
+  var bar = '<div style="display:flex;align-items:center;gap:6px">'
+    + '<div style="flex:1;height:3px;background:var(--bg3);border-radius:2px;overflow:hidden">'
+    + '<div style="height:100%;width:'+pv+'%;background:'+(pv===100?'#1D9E75':'var(--orange)')+';border-radius:2px"></div></div>'
+    + '<span style="font-size:10px;color:var(--text3)">'+pv+'%</span></div>';
+
+  var chips = chip(p.status)
+    + '<span class="chip srg">'+esc(p.region)+'</span>';
+  if(p.value>=200) chips += '<span class="chip" style="background:#E6F1FB;color:#0C447C">'+p.value+'m</span>';
+  if(p.assignee) chips += '<span class="chip" style="background:#EAF3DE;color:#27500A">'+esc(p.assignee)+'</span>';
+  if(p.followup===TDS) chips += '<span class="chip" style="background:#FAEEDA;color:#633806">Följ upp</span>';
+
+  var ql = '';
+  if(showQL){
+    ql = '<div style="display:flex;gap:5px;margin-top:5px" onclick="event.stopPropagation()">'
+      + '<span style="font-size:10px;color:var(--text2);align-self:center">Snabblogg:</span>'
+      + '<button class="btn" style="font-size:10px;padding:3px 8px" onclick="quickLog('+p.id+',\'Samtal \u2014 inget svar\')">Inget svar</button>'
+      + '<button class="btn" style="font-size:10px;padding:3px 8px" onclick="quickLog('+p.id+',\'Samtal \u2014 svarade\')">Svarade</button>'
+      + '<button class="btn" style="font-size:10px;padding:3px 8px" onclick="quickLog('+p.id+',\'Email skickat\')">Email</button>'
+      + '</div>';
+  }
+
+  return '<div class="pr '+(cls||'')+'" onclick="go(\'proj_'+p.id+'\')">'
+    + '<div class="pr-top"><div class="pname">'+esc(p.name)+'</div>'
+    + '<div class="pco">'+esc(p.company)+'</div>'
+    + chips+'</div>'+bar+ql+'</div>';
+}
+
+function quickLog(id,note){
+  var p=P.find(function(x){return x.id===id;});if(!p)return;
+  p.logs.push({date:TDS,type:'Samtal',note:note});
+  if(note.indexOf('inget svar')>-1)p.status='Called - No Answer';
+  else if(note.indexOf('svarade')>-1)p.status='Answered - Follow Up';
+  sv();render();
+}
+
+// ── Navigation ────────────────────────────────────────────────────────────────
+function go(v){
+  if(v!==V&&v.indexOf('proj_')!==0)prevV=V;
+  V=v;
+  document.querySelectorAll('.nv').forEach(function(n){n.classList.toggle('on',n.getAttribute('data-v')===v);});
+  document.getElementById('tc').textContent=P.filter(isToday).length;
+  render();
+}
+
+function render(){
+  var ct=document.getElementById('ct');
+  var pt=document.getElementById('pt');
+  if(TITLES[V])pt.textContent=TITLES[V];
+  else if(REGION_NAMES[V])pt.textContent=REGION_NAMES[V];
+  else if(V.indexOf('proj_')===0)pt.textContent='Projekt';
+
+  if(V==='dash')ct.innerHTML=rDash();
+  else if(V==='today')ct.innerHTML=rToday(_ts);
+  else if(V==='pipeline')ct.innerHTML=rPipeline();
+  else if(V==='all')ct.innerHTML=rList(P.filter(function(p){return p.status!=='Complete'&&p.status!=='Passed to Sales';}),false);
+  else if(V==='orlan')ct.innerHTML=rList(P.filter(function(p){return p.assignee==='Orlan'&&p.status!=='Complete'&&p.status!=='Passed to Sales';}),true);
+  else if(REGION_NAMES[V])ct.innerHTML=rList(P.filter(function(p){return rgnKey(p.region)===V&&p.status!=='Complete'&&p.status!=='Passed to Sales';}),false);
+  else if(V==='sales')ct.innerHTML=rSales();
+  else if(V==='archive')ct.innerHTML=rArchive();
+  else if(V==='import')ct.innerHTML=rImport();
+  else if(V==='add')ct.innerHTML=rAdd();
+  else if(V==='search')ct.innerHTML=rSearch();
+  else if(V.indexOf('proj_')===0)ct.innerHTML=rProj(parseInt(V.slice(5)));
+}
+
+// ── Dashboard ─────────────────────────────────────────────────────────────────
+function rDash(){
+  var active=P.filter(function(p){return p.status!=='Complete'&&p.status!=='Passed to Sales';});
+  var ring=P.filter(isToday).length;
+  var totalVal=active.reduce(function(s,p){return s+(p.value||0);},0);
+  var ptsVal=P.filter(function(p){return p.status==='Passed to Sales';}).reduce(function(s,p){return s+(p.value||0);},0);
+  var done=P.filter(function(p){return p.status==='Complete';}).length;
+  var pts=P.filter(function(p){return p.status==='Passed to Sales';}).length;
+
+  var bnr=LAST_WEEK?'<div class="bnr"><i class="ti ti-bell" style="font-size:18px;color:#854F0B;flex-shrink:0"></i><div><div style="font-size:13px;font-weight:600;color:#633806">Sista veckan i månaden</div><div style="font-size:12px;color:#854F0B">Exportera nästa månads projekt från Byggfakta och importera.</div></div><button class="btn" style="margin-left:auto;flex-shrink:0" onclick="go(\'import\')">Importera nu</button></div>':'';
+
+  var stats='<div class="sg">'
+    +'<div class="sc"><div class="sc-l">Aktiva projekt</div><div class="sc-n">'+active.length+'</div><div class="sc-s">'+totalVal+' mSEK</div></div>'
+    +'<div class="sc"><div class="sc-l">Ring idag</div><div class="sc-n" style="color:#E24B4A">'+ring+'</div></div>'
+    +'<div class="sc"><div class="sc-l">Passed to Sales</div><div class="sc-n" style="color:#534AB7">'+pts+'</div><div class="sc-s">'+ptsVal+' mSEK</div></div>'
+    +'<div class="sc"><div class="sc-l">Complete</div><div class="sc-n" style="color:#1D9E75">'+done+'</div></div>'
+    +'</div>';
+
+  var maxN=Math.max.apply(null,KBCOLS.map(function(s){return P.filter(function(p){return p.status===s;}).length;}));
+  maxN=Math.max(maxN,1);
+  var funnel='<div class="card"><div class="sec" style="margin-top:0">Pipeline</div>';
+  KBCOLS.forEach(function(s){
+    var n=P.filter(function(p){return p.status===s;}).length;
+    var v=P.filter(function(p){return p.status===s;}).reduce(function(a,p){return a+(p.value||0);},0);
+    var w=Math.max(Math.round(n/maxN*100),4);
+    funnel+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">'
+      +'<div style="font-size:11px;color:var(--text2);width:130px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+s+'</div>'
+      +'<div style="flex:1;height:14px;background:var(--bg3);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+w+'%;background:var(--orange);border-radius:3px"></div></div>'
+      +'<div style="font-size:11px;font-weight:600;width:16px;text-align:right">'+n+'</div>'
+      +'<div style="font-size:10px;color:var(--text3);width:55px;text-align:right">'+(v?v+'m':'')+'</div></div>';
+  });
+  funnel+='</div>';
+
+  var rgRows='<div class="card"><div class="sec" style="margin-top:0">Per region</div>';
+  REGS.forEach(function(r){
+    var tot=P.filter(function(p){return rgnKey(p.region)===r;}).length;
+    var d=P.filter(function(p){return rgnKey(p.region)===r&&(p.status==='Complete'||p.status==='Passed to Sales');}).length;
+    var rv=P.filter(function(p){return rgnKey(p.region)===r&&p.status!=='Complete'&&p.status!=='Passed to Sales';}).reduce(function(a,p){return a+(p.value||0);},0);
+    var pv=tot?Math.round(d/tot*100):0;
+    rgRows+='<div class="pgrow"><div class="pglbl"><span class="rdot" style="background:'+RC[r]+'"></span>'+REGION_NAMES[r]+'</div>'
+      +'<div class="pgbg"><div class="pgfill" style="width:'+pv+'%;background:'+RC[r]+'"></div></div>'
+      +'<div class="pgpct">'+pv+'%</div>'
+      +'<div style="font-size:10px;color:var(--text3);width:45px;text-align:right;flex-shrink:0">'+(rv?rv+'m':'')+'</div></div>';
+  });
+  rgRows+='</div>';
+
+  var urgent=P.filter(function(p){return isToday(p)&&p.priority==='High';}).slice(0,3).map(function(p){return prow(p,'hot',true);}).join('');
+
+  return bnr+stats
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">'+funnel+rgRows+'</div>'
+    +'<div class="sec">Ring idag — hög prioritet</div>'
+    +(urgent||'<div class="card" style="text-align:center;padding:24px;font-size:13px;color:var(--text2)">Inga hög-prioritet projekt att ringa just nu.</div>')
+    +'<button class="btn" style="margin-top:10px" onclick="go(\'today\')">Visa alla att ringa idag →</button>';
+}
+
+// ── Ring idag ─────────────────────────────────────────────────────────────────
+function rTodaySort(s){_ts=s;document.getElementById('ct').innerHTML=rToday(s);}
+
+function rToday(sb){
+  sb=sb||'priority';
+  var list=P.filter(isToday).slice();
+  if(sb==='value')list.sort(function(a,b){return(b.value||0)-(a.value||0);});
+  else if(sb==='start')list.sort(function(a,b){return(a.start||'9').localeCompare(b.start||'9');});
+  else list.sort(function(a,b){return(a.priority==='High'?0:a.priority==='Medium'?1:2)-(b.priority==='High'?0:b.priority==='Medium'?1:2);});
+
+  if(!list.length)return '<div class="card" style="text-align:center;padding:48px 24px"><i class="ti ti-circle-check" style="font-size:36px;color:#1D9E75;display:block;margin:0 auto 12px"></i><div style="font-size:15px;font-weight:600;margin-bottom:5px">Inga projekt att ringa idag</div><div style="font-size:13px;color:var(--text2)">Projekt som startar '+TM+' eller '+NM+' dyker upp här automatiskt.</div></div>';
+
+  var sortBar='<div style="display:flex;gap:6px;margin-bottom:10px;align-items:center;flex-wrap:wrap">'
+    +'<span style="font-size:12px;color:var(--text2)">Sortera:</span>'
+    +'<button class="btn '+(sb==='priority'?'btn-or':'')+'" style="font-size:11px;padding:4px 10px" onclick="rTodaySort(\'priority\')">Prioritet</button>'
+    +'<button class="btn '+(sb==='value'?'btn-or':'')+'" style="font-size:11px;padding:4px 10px" onclick="rTodaySort(\'value\')">Värde ↓</button>'
+    +'<button class="btn '+(sb==='start'?'btn-or':'')+'" style="font-size:11px;padding:4px 10px" onclick="rTodaySort(\'start\')">Startdatum</button>'
+    +'<span style="margin-left:auto;font-size:12px;color:var(--text2)">'+list.length+' projekt</span></div>';
+
+  var info='<div style="background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);padding:10px 14px;margin-bottom:10px;font-size:12px;color:var(--text2)">Visar projekt som startar <strong>'+TM+'</strong> eller <strong>'+NM+'</strong>, plus schemalagda följ-upp.</div>';
+
+  var fu=list.filter(function(p){return p.followup===TDS;});
+  var mo=list.filter(function(p){return p.followup!==TDS;});
+  var h=info+sortBar;
+  if(fu.length){h+='<div class="sec">Schemalagda följ-upp idag ('+fu.length+')</div>';fu.forEach(function(p){h+=prow(p,'fu',true);});}
+  if(mo.length){h+='<div class="sec" style="margin-top:'+(fu.length?'12px':'0')+'">Denna / nästa månad ('+mo.length+')</div>';mo.forEach(function(p){h+=prow(p,p.priority==='High'?'hot':'',true);});}
+  return h;
+}
+
+// ── Pipeline ──────────────────────────────────────────────────────────────────
+function rPipeline(){
+  var h='<div style="overflow-x:auto;padding-bottom:8px"><div class="kb">';
+  KBCOLS.forEach(function(status){
+    var cards=P.filter(function(p){return p.status===status;});
+    var totVal=cards.reduce(function(a,p){return a+(p.value||0);},0);
+    var cardH=cards.map(function(p){
+      var tags='<div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:3px">'
+        +'<span style="font-size:9px;padding:1px 5px;border-radius:10px;background:'+RC[rgnKey(p.region)]+'22;color:'+RC[rgnKey(p.region)]+';border:0.5px solid '+RC[rgnKey(p.region)]+'40">'+esc(p.region)+'</span>';
+      if(p.value>=200)tags+='<span style="font-size:9px;padding:1px 5px;border-radius:10px;background:#E6F1FB;color:#0C447C">'+p.value+'m</span>';
+      if(p.priority==='High')tags+='<span style="font-size:9px;padding:1px 5px;border-radius:10px;background:#FCEBEB;color:#A32D2D">Hög</span>';
+      tags+='</div>';
+      var pv=PROG[status]||0;
+      return '<div class="kbcard" onclick="go(\'proj_'+p.id+'\')">'
+        +'<div class="kbcn">'+esc(p.name)+'</div>'
+        +'<div class="kbco">'+esc(p.company)+'</div>'
+        +tags
+        +'<div style="height:3px;background:var(--bg3);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+pv+'%;background:'+(pv===100?'#1D9E75':'var(--orange)')+';border-radius:2px"></div></div>'
+        +'</div>';
+    }).join('');
+    h+='<div class="kbc"><div class="kbh"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:80px" title="'+status+'">'+status+'</span>'
+      +'<span style="background:var(--bg);border-radius:10px;padding:1px 6px;font-size:10px">'+cards.length+'</span></div>'
+      +(totVal?'<div style="font-size:10px;color:var(--text3);margin-bottom:5px;text-align:right">'+totVal+' mSEK</div>':'')
+      +cardH+'</div>';
+  });
+  return h+'</div></div>';
+}
+
+// ── List view ─────────────────────────────────────────────────────────────────
+function rList(list, isOrlan){
+  var totalVal=list.reduce(function(a,p){return a+(p.value||0);},0);
+  var filterBtns='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;align-items:center">'
+    +'<span style="font-size:12px;color:var(--text2)">Filter:</span>';
+  var allBtn=document.createElement('span');
+  allBtn.style.cssText='padding:4px 10px;border-radius:20px;font-size:11px;border:0.5px solid var(--border2);cursor:pointer;background:var(--orange);color:#fff';
+  allBtn.textContent='Alla ('+list.length+')';
+  allBtn.onclick=function(){filt('Alla',this);};
+  filterBtns+='<span style="padding:4px 10px;border-radius:20px;font-size:11px;border:0.5px solid var(--border2);cursor:pointer;background:var(--orange);color:#fff" onclick="filt(\'Alla\',this)">Alla ('+list.length+')</span>';
+  ST.filter(function(s){return s!=='Complete'&&s!=='Passed to Sales';}).forEach(function(s){
+    filterBtns+='<span style="padding:4px 10px;border-radius:20px;font-size:11px;border:0.5px solid var(--border2);cursor:pointer;color:var(--text2);background:var(--bg)" onclick="filt(\''+s+'\',this)">'+s+'</span>';
+  });
+  if(totalVal)filterBtns+='<span style="margin-left:auto;font-size:12px;color:var(--text2)">Totalt: <strong>'+totalVal+' mSEK</strong></span>';
+  filterBtns+='</div>';
+  var rows=list.map(function(p){return prow(p,p.priority==='High'?'hot':'',isOrlan);}).join('');
+  return filterBtns+(rows||'<div class="card" style="text-align:center;padding:24px;font-size:13px;color:var(--text2)">Inga projekt.</div>');
+}
+
+function filt(s,el){
+  document.querySelectorAll('.ct [onclick*="filt"]').forEach(function(e){e.style.background='var(--bg)';e.style.color='var(--text2)';});
+  el.style.background='var(--orange)';el.style.color='#fff';
+  document.querySelectorAll('.pr').forEach(function(r){
+    if(s==='Alla'){r.style.display='';return;}
+    var c=r.querySelector('.chip');r.style.display=(c&&c.textContent===s)?'':'none';
+  });
+}
+
+function rSales(){
+  var l=P.filter(function(p){return p.status==='Passed to Sales';});
+  var v=l.reduce(function(a,p){return a+(p.value||0);},0);
+  return '<div style="font-size:13px;color:var(--text2);margin-bottom:12px">'+l.length+' projekt · <strong>'+v+' mSEK</strong></div>'
+    +(l.map(function(p){return prow(p,'dim',false);}).join('')||'<div class="card" style="text-align:center;padding:24px;font-size:13px;color:var(--text2)">Inga projekt ännu.</div>');
+}
+
+function rArchive(){
+  var l=P.filter(function(p){return p.status==='Complete';});
+  return '<div style="font-size:13px;color:var(--text2);margin-bottom:12px">'+l.length+' avklarade projekt</div>'
+    +(l.map(function(p){return prow(p,'dim',false);}).join('')||'<div class="card" style="text-align:center;padding:24px;font-size:13px;color:var(--text2)">Inga projekt ännu.</div>');
+}
+
+// ── Search ────────────────────────────────────────────────────────────────────
+function rSearch(){
+  return '<div class="search-wrap"><i class="ti ti-search" style="font-size:16px;color:var(--text2)"></i>'
+    +'<input id="sq" placeholder="Sök projektnamn, företag, beställare, kontakt..." oninput="doSearch(this.value)" autofocus style="font-size:14px"></div>'
+    +'<div id="sr"><div style="font-size:13px;color:var(--text2)">Börja skriva för att söka bland '+P.length+' projekt...</div></div>';
+}
+function doSearch(q){
+  var sr=document.getElementById('sr');
+  if(!q||q.length<2){sr.innerHTML='<div style="font-size:13px;color:var(--text2)">Börja skriva...</div>';return;}
+  var ql=q.toLowerCase();
+  var res=P.filter(function(p){return[p.name,p.company,p.bestallare,p.contact,p.region,p.notes].some(function(f){return f&&f.toLowerCase().indexOf(ql)>-1;});});
+  sr.innerHTML='<div style="font-size:12px;color:var(--text2);margin-bottom:10px">'+res.length+' träffar</div>'+(res.map(function(p){return prow(p,'',false);}).join('')||'<div style="font-size:13px;color:var(--text2)">Inga träffar.</div>');
+}
+
+// ── Project page ──────────────────────────────────────────────────────────────
+function rProj(id){
+  var p=P.find(function(x){return x.id===id;});
+  if(!p)return '<div>Projekt ej hittat.</div>';
+  var pv=pc(p);
+
+  var sOpts=ST.map(function(s){return '<option'+(s===p.status?' selected':'')+'>'+s+'</option>';}).join('');
+  var prOpts=['High','Medium','Low'].map(function(s){return '<option'+(s===p.priority?' selected':'')+'>'+s+'</option>';}).join('');
+  var asOpts=['Orlan','—'].map(function(s){return '<option'+((p.assignee||'—')===s?' selected':'')+'>'+s+'</option>';}).join('');
+
+  var tl=p.logs.slice().reverse().map(function(l,i,arr){
+    return '<div class="tli"><div class="tldc"><div class="tld" style="background:'+(ACOL[l.type]||'#888')+'"></div>'+(i<arr.length-1?'<div class="tll"></div>':'')+'</div>'
+      +'<div style="flex:1"><div class="tdate">'+l.date+' · <span style="color:'+(ACOL[l.type]||'#888')+';font-weight:500">'+l.type+'</span></div>'
+      +'<div class="tnote">'+esc(l.note)+'</div></div></div>';
+  }).join('');
+
+  var urlBar=p.url
+    ?'<div class="url-bar"><i class="ti ti-external-link" style="font-size:14px;color:#185FA5;flex-shrink:0"></i><span style="font-size:12px;color:var(--text2);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(p.url)+'</span><a href="'+esc(p.url)+'" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;font-size:12px;border-radius:var(--radius);border:0.5px solid #85B7EB;background:#E6F1FB;color:#0C447C;text-decoration:none;white-space:nowrap;flex-shrink:0">Öppna i Byggfakta</a></div>'
+    :'<div class="url-bar"><span style="font-size:12px;color:var(--text2);flex:1">Ingen Byggfakta-länk</span><button class="btn" onclick="addUrl('+id+')">Lägg till URL</button></div>';
+
+  var mailBox=p.status==='Passed to Sales'?buildMailBox(p):'';
+  var mtg=p.value>=200?'<div style="background:#E6F1FB;border:0.5px solid #85B7EB;border-radius:var(--radius);padding:9px 12px;margin:8px 0"><div style="font-size:12px;font-weight:600;color:#0C447C;margin-bottom:6px">Mötesbookning — '+p.value+' mSEK</div><div style="display:flex;gap:6px"><input id="md'+id+'" type="date" style="font-size:12px;padding:6px;border:0.5px solid #85B7EB;border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:inherit"><button class="btn btn-bl" onclick="bookM('+id+')">Boka möte</button></div></div>':'';
+
+  return '<div style="display:flex;gap:8px;margin-bottom:14px">'
+    +'<button class="btn" onclick="go(prevV||\'all\')"><i class="ti ti-arrow-left"></i> Tillbaka</button>'
+    +'<button class="btn" style="background:#EAF3DE;border-color:#97C459;color:#27500A;font-weight:500" onclick="draftEmail('+id+')"><i class="ti ti-mail"></i> Skriv uppföljningsmejl</button>'
+    +'</div>'
+    +urlBar+mailBox
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px">'
+    +'<div class="card"><div style="font-size:16px;font-weight:600;margin-bottom:10px">'+esc(p.name)+'</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">'
+    +'<div><div style="font-size:11px;color:var(--text2);margin-bottom:2px;font-weight:500">Totalentreprenör</div><div style="font-size:13px">'+esc(p.company||'—')+'</div></div>'
+    +'<div><div style="font-size:11px;color:var(--text2);margin-bottom:2px;font-weight:500">Beställare</div><div style="font-size:13px">'+esc(p.bestallare||'—')+'</div></div>'
+    +'</div>'
+    +'<div style="display:flex;gap:14px;flex-wrap:wrap">'
+    +'<div><div style="font-size:11px;color:var(--text2);font-weight:500">Platschef</div><div style="font-size:13px">'+(p.contact?esc(p.contact):'<span style="background:#FAEEDA;color:#633806;padding:2px 8px;border-radius:20px;font-size:11px">Find Contact</span>')+'</div></div>'
+    +'<div><div style="font-size:11px;color:var(--text2);font-weight:500">Telefon</div><div style="font-size:13px">'+esc(p.phone||'—')+'</div></div>'
+    +'<div><div style="font-size:11px;color:var(--text2);font-weight:500">Startar</div><div style="font-size:13px">'+esc(p.start||'—')+'</div></div>'
+    +'<div><div style="font-size:11px;color:var(--text2);font-weight:500">Värde</div><div style="font-size:13px;font-weight:600">'+(p.value?p.value+' mSEK':'—')+'</div></div>'
+    +'<div><div style="font-size:11px;color:var(--text2);font-weight:500">Region</div><div style="font-size:13px">'+esc(p.region)+'</div></div>'
+    +'</div>'
+    +(p.notes?'<div style="font-size:12px;color:var(--text2);background:var(--bg2);padding:9px 11px;border-radius:var(--radius);margin-top:10px;border:0.5px solid var(--border)">'+esc(p.notes)+'</div>':'')
+    +'</div>'
+    +'<div class="card" style="display:flex;flex-direction:column;gap:10px">'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">'
+    +'<div class="fld"><label>Status</label><select onchange="updS('+id+',this.value)">'+sOpts+'</select></div>'
+    +'<div class="fld"><label>Prioritet</label><select onchange="updF('+id+',\'priority\',this.value)">'+prOpts+'</select></div>'
+    +'<div class="fld"><label>Ansvarig</label><select onchange="updF('+id+',\'assignee\',this.value)">'+asOpts+'</select></div>'
+    +'</div>'
+    +'<div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:11px;color:var(--text2);font-weight:500">Framsteg</span><span style="font-size:12px;font-weight:600" id="pp'+id+'">'+pv+'%</span></div>'
+    +'<div style="width:100%;height:8px;background:var(--bg3);border-radius:4px;overflow:hidden"><div id="pb'+id+'" style="height:100%;width:'+pv+'%;background:'+(pv===100?'#1D9E75':'var(--orange)')+';border-radius:4px;transition:width .4s"></div></div>'
+    +'<div style="font-size:11px;color:var(--text3);margin-top:3px">Uppdateras automatiskt med status</div></div>'
+    +'<div class="fld"><label>Följ-upp datum</label><input type="date" value="'+(p.followup||'')+'" onchange="updF('+id+',\'followup\',this.value)">'
+    +'<div style="font-size:11px;color:var(--text3);margin-top:2px">Dyker upp i Ring idag på valt datum</div></div>'
+    +'<div class="fld"><label>Anteckningar</label><textarea onchange="updF('+id+',\'notes\',this.value)">'+esc(p.notes||'')+'</textarea></div>'
+    +'</div></div>'
+    +mtg
+    +'<div class="card"><div style="font-size:13px;font-weight:600;margin-bottom:10px">Aktivitetslogg</div>'
+    +'<div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px">'
+    +'<select id="at'+id+'" style="font-size:12px;padding:6px 9px;border:0.5px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:inherit">'+ACTS.map(function(t){return '<option>'+t+'</option>';}).join('')+'</select>'
+    +'<input id="an'+id+'" placeholder="Skriv anteckning..." style="flex:1;min-width:150px;font-size:12px;padding:6px 10px;border:0.5px solid var(--border2);border-radius:var(--radius);background:var(--bg);color:var(--text);font-family:inherit">'
+    +'<button class="btn btn-gr" onclick="addLog('+id+')"><i class="ti ti-check"></i> Spara</button>'
+    +'</div>'
+    +'<div id="tl'+id+'">'+(tl||'<div style="font-size:12px;color:var(--text2)">Inga aktiviteter loggade ännu.</div>')+'</div>'
+    +'</div>';
+}
+
+function buildMailBox(p){
+  return '<div class="mail-box"><div style="font-size:12px;font-weight:600;color:#27500A;margin-bottom:10px">✉ Passed to Sales — kopiera mejl till säljteamet</div>'
+    +'<div style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:flex-end;margin-bottom:8px">'
+    +'<div class="fld"><label>Vad önskar kunden?</label><input id="mw'+p.id+'" placeholder="T.ex. offert på stängsel, leverans v.28" oninput="updMailPrev('+p.id+')"></div>'
+    +'<button class="btn btn-cp" id="cpbtn'+p.id+'" onclick="copyMail('+p.id+')" style="font-size:12px"><i class="ti ti-copy"></i> Kopiera mejl</button>'
+    +'</div>'
+    +'<div style="font-size:11px;color:#27500A;margin-bottom:5px;font-weight:500">Förhandsgranskning:</div>'
+    +'<div class="mail-preview" id="mprev'+p.id+'">'+buildMailText(p,'')+'</div>'
+    +'<div style="font-size:11px;color:var(--text2);margin-top:8px">Kopiera → öppna nytt mejl i Outlook → Ctrl+V → lägg till mottagare → skicka</div>'
+    +'</div>';
+}
+
+function buildMailText(p,wish){
+  var logs=p.logs.slice(-5).map(function(l){return '• '+l.date+' — '+l.type+': '+l.note;}).join('\n');
+  return 'Hej,\n\nJag vill passa vidare följande projektlead.\n\nPROJEKT: '+p.name
+    +'\nBeställare: '+(p.bestallare||'—')+'\nTotalentreprenör: '+(p.company||'—')+'\nPlatschef: '+(p.contact||'Ej hittad')+'\nTelefon: '+(p.phone||'—')
+    +'\nRegion: '+p.region+'\nStartar: '+(p.start||'—')+'\nVärde: '+(p.value?p.value+' mSEK':'—')+'\nByggfakta: '+(p.url||'—')
+    +'\n\nVAD KUNDEN ÖNSKAR:\n'+(wish||'Ej angivet')+'\n\nANTECKNINGAR:\n'+(p.notes||'—')+'\n\nSENASTE AKTIVITET:\n'+(logs||'—');
+}
+
+function updMailPrev(id){
+  var p=P.find(function(x){return x.id===id;});if(!p)return;
+  var wish=document.getElementById('mw'+id)?document.getElementById('mw'+id).value:'';
+  var prev=document.getElementById('mprev'+id);if(prev)prev.textContent=buildMailText(p,wish);
+}
+
+function copyMail(id){
+  var p=P.find(function(x){return x.id===id;});if(!p)return;
+  var wish=document.getElementById('mw'+id)?document.getElementById('mw'+id).value:'';
+  navigator.clipboard.writeText(buildMailText(p,wish)).then(function(){
+    var btn=document.getElementById('cpbtn'+id);
+    if(btn){btn.classList.add('btn-or');btn.innerHTML='✓ Kopierat!';setTimeout(function(){btn.classList.remove('btn-or');btn.innerHTML='<i class="ti ti-copy"></i> Kopiera mejl';},3000);}
+  });
+}
+
+// ── Email drafting ─────────────────────────────────────────────────────────────
+function _ptGuess(p){
+  var n=(p.name+' '+p.company).toLowerCase();
+  if(/vatten|avlopp|reningsverk|va-/.test(n))return 'infrastruktur/VA';
+  if(/väg|motorväg|asfalt|gata/.test(n))return 'vägarbete';
+  if(/datacenter/.test(n))return 'datacenter';
+  if(/bostäder|lägenheter|flerbostads|brf/.test(n))return 'bostadsbyggande';
+  if(/skola|förskola|gymnasium/.test(n))return 'skolbyggnad';
+  if(/industri|lager|logistik|fabrik/.test(n))return 'industribyggnad';
+  if(/hamn|tunnel|bro/.test(n))return 'infrastruktur';
+  if(/kontor|fastighet|handel|köpcentrum/.test(n))return 'kommersiell fastighet';
+  return 'byggprojekt';
+}
+
+function draftEmail(id){
+  var p=P.find(function(x){return x.id===id;});if(!p)return;
+  var ex=document.getElementById('emod-'+id);
+  if(ex){ex.style.display='flex';return;}
+  var notes=p.logs.map(function(l){return l.note;}).join('. ');
+  var el=document.createElement('div');
+  el.id='emod-'+id;
+  el.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px';
+  var inner=document.createElement('div');
+  inner.style.cssText='background:var(--bg);border-radius:var(--radius-lg);width:620px;max-height:88vh;display:flex;flex-direction:column;border:0.5px solid var(--border2);box-shadow:0 8px 32px rgba(0,0,0,0.18)';
+  inner.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:0.5px solid var(--border);flex-shrink:0">'
+    +'<div style="font-size:14px;font-weight:600">✉ Uppföljningsmejl — '+esc(p.name)+'</div>'
+    +'<button id="eclose-'+id+'" style="background:none;border:none;cursor:pointer;font-size:24px;color:var(--text2);line-height:1;padding:0">×</button>'
+    +'</div>'
+    +'<div style="padding:16px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:12px">'
+    +'<div style="background:var(--bg2);border-radius:var(--radius);padding:9px 12px;font-size:12px;color:var(--text2)"><strong>'+esc(p.company||'—')+'</strong> · '+esc(p.region)+'</div>'
+    +'<div class="fld"><label>Samtalsanteckningar (valfritt)</label>'
+    +'<textarea id="en-'+id+'" placeholder="T.ex: pratade om stängsel, ska ut om 3 veckor..." style="min-height:70px">'+esc(notes)+'</textarea></div>'
+    +'<button class="btn btn-or" id="egenbtn-'+id+'" style="font-size:12px;padding:8px 18px;align-self:flex-start"><i class="ti ti-sparkles"></i> Generera mejl med AI</button>'
+    +'<div id="elod-'+id+'" style="display:none;padding:16px;text-align:center;color:var(--text2);font-size:13px">Skriver mejl...</div>'
+    +'<div id="eout-'+id+'" style="display:none;flex-direction:column;gap:8px">'
+    +'<div class="fld"><label>Ämnesrad</label><input id="esub-'+id+'" style="font-size:13px;font-weight:500"></div>'
+    +'<div class="fld"><label>Mejltext</label><textarea id="ebody-'+id+'" style="min-height:260px;font-size:12px;line-height:1.6"></textarea></div>'
+    +'<div style="display:flex;gap:8px">'
+    +'<button class="btn btn-cp" id="ecopy-'+id+'" style="font-size:12px"><i class="ti ti-copy"></i> Kopiera till clipboard</button>'
+    +'<button class="btn" id="eagen-'+id+'" style="font-size:12px"><i class="ti ti-refresh"></i> Generera igen</button>'
+    +'</div>'
+    +'<div style="font-size:11px;color:var(--text3)">Kopiera → öppna nytt mejl i Outlook → Ctrl+V → lägg till mottagare → skicka</div>'
+    +'</div></div>';
+  el.appendChild(inner);
+  document.body.appendChild(el);
+  document.getElementById('eclose-'+id).onclick=function(){el.style.display='none';};
+  document.getElementById('egenbtn-'+id).onclick=function(){genEmail(id);};
+  document.getElementById('eagen-'+id).onclick=function(){genEmail(id);};
+  document.getElementById('ecopy-'+id).onclick=function(){copyEmailDraft(id);};
+}
+
+async function genEmail(id){
+  var p=P.find(function(x){return x.id===id;});if(!p)return;
+  var notes=document.getElementById('en-'+id)?document.getElementById('en-'+id).value:'';
+  var pt=_ptGuess(p);
+  var ld=document.getElementById('elod-'+id);var out=document.getElementById('eout-'+id);
+  if(ld)ld.style.display='block';
+  if(out)out.style.display='none';
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:'Du är e-postassistent för Orlan på BGFIX.\n\nPROJEKT: '+p.name+'\nTYP: '+pt+'\nFÖRETAG: '+(p.company||'okänt')+'\nKONTAKT: '+(p.contact||'projektledaren')+'\nVÄRDE: '+(p.value?p.value+' mSEK':'okänt')+'\nANTECKNINGAR: '+(notes||'(inga)')+'\n\nSkriv uppföljningsmejl på svenska. Struktur:\nRad1: Ämnesrad: Som avtalat, [Förnamn] – BGFIX-broschyr ([2 produkter] och mycket mer)\nRad2: tom\nRad3: Hej [Förnamn],\nRad4: Tack för pratstunden om [projekt] – [naturlig mening från anteckningarna eller "det låter som ett spännande projekt"].\nRad5: Jag bifogar vår broschyr som utlovat 😊\nRad6: tom\nRad7: De flesta känner oss för stängsel, grindar och portar, men hos BGFIX kan du få lösningar för hela projektets gång, till exempel:\nRad8-11: 3-4 produktpunkter för '+pt+' (ENBART från: Byggstängsel, Grindar till byggstängsel, Portar, Lätt avspärrning, Tung avspärrning, Publikstängsel, Säkerhetsräcken, Säkerhetsprodukter för betongarbete, Soldater/däckstöd, Spaghettimattor, Gångbroar)\nRad12: tom\nRad13: Det gör inköpsprocessen enkel och effektiv för dig – och du får:\nRad14: • Ett brett sortiment med smarta lösningar\nRad15: • Konkurrenskraftiga priser\nRad16: • Leverans inom 24–48 timmar i hela Sverige och personlig service\nRad17: tom\nRad18: Du kan se hela vårt sortiment på www.bgfix.se\nRad19: tom\nRad20: Hör gärna av dig om det är något vi kan hjälpa till med, eller om du önskar en offert!\nRad21: tom\nRad22: Lycka till med projektet – fortsatt trevlig dag!\nRad23: tom\nRad24: *K.S. Om du redan har en idé om vilka produkter som är relevanta, skicka gärna en kort lista – så återkommer jag med priser och leveranstid samma dag.*\n\nREGLER: Skandinavisk ton. Du-form. Max 200 ord. ENDAST 😊 rad5. INGEN signatur. INGEN Orlan. Output=ENBART mejlet.'}]})});
+    var d=await resp.json();
+    var txt=d.content&&d.content[0]?d.content[0].text||'':'';
+    var lines=txt.trim().split('\n');
+    var subj='',body='';
+    for(var i=0;i<lines.length;i++){if(lines[i].trim()){subj=lines[i].replace(/^(Ämnesrad:|Ämne:|Subject:)\s*/i,'').trim();body=lines.slice(i+1).join('\n').trim();break;}}
+    var se=document.getElementById('esub-'+id);var be=document.getElementById('ebody-'+id);
+    if(se)se.value=subj;if(be)be.value=body;
+    if(ld)ld.style.display='none';
+    if(out)out.style.display='flex';
+  }catch(e){if(ld)ld.style.display='none';alert('Kunde inte generera mejl: '+e.message);}
+}
+
+function copyEmailDraft(id){
+  var s=document.getElementById('esub-'+id)?document.getElementById('esub-'+id).value:'';
+  var b=document.getElementById('ebody-'+id)?document.getElementById('ebody-'+id).value:'';
+  navigator.clipboard.writeText('Ämne: '+s+'\n\n'+b).then(function(){
+    var btn=document.getElementById('ecopy-'+id);
+    if(btn){var orig=btn.innerHTML;btn.innerHTML='✓ Kopierat!';btn.style.cssText='background:#1D9E75;border-color:#1D9E75;color:#fff;font-size:12px';setTimeout(function(){btn.innerHTML=orig;btn.removeAttribute('style');},3000);}
+  });
+}
+
+// ── CRUD ──────────────────────────────────────────────────────────────────────
+function updS(id,val){
+  var p=P.find(function(x){return x.id===id;});if(!p)return;
+  p.status=val;sv();
+  var pv=pc(p);
+  var pb=document.getElementById('pb'+id);var pp=document.getElementById('pp'+id);
+  if(pb){pb.style.width=pv+'%';pb.style.background=pv===100?'#1D9E75':'var(--orange)';}
+  if(pp)pp.textContent=pv+'%';
+  document.getElementById('tc').textContent=P.filter(isToday).length;
+}
+function updF(id,f,v){var p=P.find(function(x){return x.id===id;});if(p){p[f]=v;sv();}document.getElementById('tc').textContent=P.filter(isToday).length;}
+function addUrl(id){var url=prompt('Klistra in Byggfakta URL:');if(!url||!url.trim())return;var p=P.find(function(x){return x.id===id;});if(p){p.url=url.trim();sv();go('proj_'+id);}}
+function bookM(id){var d=document.getElementById('md'+id);if(!d||!d.value)return;var p=P.find(function(x){return x.id===id;});if(p){p.logs.push({date:TDS,type:'Möte',note:'Möte bokat: '+d.value});p.followup=d.value;sv();go('proj_'+id);}}
+function addLog(id){
+  var t=document.getElementById('at'+id);var n=document.getElementById('an'+id);
+  if(!n||!n.value.trim())return;
+  var p=P.find(function(x){return x.id===id;});
+  if(p){p.logs.push({date:TDS,type:t.value,note:n.value.trim()});sv();
+    var tl=document.getElementById('tl'+id);var c=ACOL[t.value]||'#888';
+    if(tl)tl.insertAdjacentHTML('afterbegin','<div class="tli"><div class="tldc"><div class="tld" style="background:'+c+'"></div></div><div style="flex:1"><div class="tdate">'+TDS+' · <span style="color:'+c+';font-weight:500">'+t.value+'</span></div><div class="tnote">'+esc(n.value.trim())+'</div></div></div>');
+    n.value='';}
+}
+
+// ── Import / Add ──────────────────────────────────────────────────────────────
+function rImport(){
+  return '<div style="max-width:460px"><div class="card" style="margin-bottom:14px">'
+    +'<div style="font-size:14px;font-weight:600;margin-bottom:5px">Importera från Byggfakta</div>'
+    +'<div style="font-size:13px;color:var(--text2);margin-bottom:14px">Bara nya projekt läggs till. Befintliga noteringar berörs inte.</div>'
+    +'<div class="idrop" id="idrop" onclick="this.nextElementSibling.click()">'
+    +'<i class="ti ti-upload" style="font-size:28px;color:var(--text2);display:block;margin:0 auto 8px"></i>'
+    +'<div style="font-size:14px;color:var(--text2)">Klicka för att välja .xlsx fil</div>'
+    +'<div style="font-size:12px;color:var(--text3);margin-top:4px">Exportera från Byggfakta SMART och ladda upp här</div>'
+    +'</div>'
+    +'<input type="file" accept=".xlsx" style="display:none" onchange="setTimeout(function(){alert(\'Ladda upp filen i chatten till Claude — Claude sorterar in nya projekt automatiskt.\');},200)">'
+    +'</div>'
+    +'<div style="background:#FFF3CD;border:0.5px solid var(--orange);border-radius:var(--radius);padding:11px 14px;font-size:12px;color:#633806">'
+    +'<strong>Hur du exporterar:</strong><br>1. Gå till Byggfakta SMART<br>2. Filtrera på nästa månads startdatum<br>3. Exportera som Excel (.xlsx)<br>4. Ladda upp filen i denna chatt till Claude'
+    +'</div></div>';
+}
+
+function rAdd(){
+  var rgOpts=REGS.map(function(r){return '<option value="'+r+'">'+REGION_NAMES[r]+'</option>';}).join('');
+  var stOpts=ST.map(function(s){return '<option>'+s+'</option>';}).join('');
+  return '<div style="max-width:480px;display:grid;gap:10px">'
+    +'<div class="fld"><label>Projektnamn *</label><input id="f0" placeholder="Projektnamn"></div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
+    +'<div class="fld"><label>Totalentreprenör</label><input id="f1" placeholder="Företag"></div>'
+    +'<div class="fld"><label>Beställare</label><input id="fb" placeholder="Beställare"></div></div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
+    +'<div class="fld"><label>Platschef</label><input id="f3" placeholder="Namn"></div>'
+    +'<div class="fld"><label>Telefon</label><input id="f4" placeholder="07x-xxx xx xx"></div></div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
+    +'<div class="fld"><label>Värde (mSEK)</label><input id="f2" type="number" placeholder="0"></div>'
+    +'<div class="fld"><label>Region</label><select id="f5">'+rgOpts+'</select></div></div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
+    +'<div class="fld"><label>Status</label><select id="f6">'+stOpts+'</select></div>'
+    +'<div class="fld"><label>Prioritet</label><select id="f7"><option>High</option><option selected>Medium</option><option>Low</option></select></div></div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
+    +'<div class="fld"><label>Startmånad (YYYY-MM)</label><input id="f8" placeholder="2026-07"></div>'
+    +'<div class="fld"><label>Följ-upp datum</label><input id="f9" type="date"></div></div>'
+    +'<div class="fld"><label>Byggfakta URL</label><input id="f10" placeholder="https://smart.byggfakta.se/..."></div>'
+    +'<div class="fld"><label>Anteckningar</label><textarea id="f11" placeholder="Fritext..."></textarea></div>'
+    +'<button class="btn btn-or" onclick="saveNew()" style="padding:9px 20px;font-size:13px;width:fit-content">Spara projekt</button>'
+    +'</div>';
+}
+
+function saveNew(){
+  var name=document.getElementById('f0').value.trim();if(!name){alert('Projektnamn krävs');return;}
+  var rgVal=document.getElementById('f5').value;
+  var regionDisplay=REGION_NAMES[rgVal]||rgVal;
+  P.unshift({id:Date.now(),name:name,company:document.getElementById('f1').value.trim(),bestallare:document.getElementById('fb').value.trim(),
+    contact:document.getElementById('f3').value.trim(),phone:document.getElementById('f4').value.trim(),
+    status:document.getElementById('f6').value,priority:document.getElementById('f7').value,
+    region:regionDisplay,start:document.getElementById('f8').value.trim(),
+    value:parseInt(document.getElementById('f2').value)||0,
+    url:document.getElementById('f10').value.trim(),followup:document.getElementById('f9').value||'',
+    notes:document.getElementById('f11').value.trim(),assignee:'Orlan',logs:[]});
+  sv();go('all');
+}
+
+// ── Export ────────────────────────────────────────────────────────────────────
+function exportCSV(){
+  var active=P.filter(function(p){return p.status!=='Complete';});
+  var rows=[['Projektnamn','Beställare','Totalentreprenör','Platschef','Telefon','Status','Prioritet','Region','Startar','Värde (mSEK)','Framsteg %','Följ-upp','Notes','Byggfakta URL']];
+  active.forEach(function(p){rows.push([p.name,p.bestallare||'',p.company||'',p.contact||'',p.phone||'',p.status,p.priority,p.region,p.start||'',p.value||'',pc(p),p.followup||'',p.notes||'',p.url||'']);});
+  var csv=rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+  var blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='BGFIX_Export_'+TDS+'.csv';a.click();
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+go('dash');
+</script>
+</body>
+</html>
